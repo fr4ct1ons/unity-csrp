@@ -4,7 +4,8 @@ using UnityEngine.Rendering;
 public partial class CameraRenderer {
     
     private const string bufferName = "RenderCamera";
-    private static ShaderTagId unlitShaderTagId = new ShaderTagId("SRPDefaultUnlit");
+    private static ShaderTagId unlitShaderTagId = new ShaderTagId("SRPDefaultUnlit"),
+    litShaderTagId = new ShaderTagId("CustomLit") ;
 
     private ScriptableRenderContext context;
     private Camera camera;
@@ -50,6 +51,7 @@ public partial class CameraRenderer {
             criteria = SortingCriteria.CommonOpaque
         };
         DrawingSettings drawingSettings = new DrawingSettings(unlitShaderTagId, sortingSettings);
+        drawingSettings.SetShaderPassName(1, litShaderTagId);
         FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
         context.DrawRenderers(cullingResults, ref drawingSettings, ref filteringSettings);
         context.DrawSkybox(camera);

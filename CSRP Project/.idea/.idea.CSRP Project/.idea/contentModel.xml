@@ -18,6 +18,7 @@
             <e p="UnityInput.hlsl" t="Include" />
           </e>
           <e p="Shaders" t="Include">
+            <e p="Lit.shader" t="Include" />
             <e p="LitPass.hlsl" t="Include" />
             <e p="Unlit.shader" t="Include" />
             <e p="UnlitPass.hlsl" t="Include" />
