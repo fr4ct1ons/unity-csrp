@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
 
-public class CameraRenderer {
+public partial class CameraRenderer {
     
     private const string bufferName = "RenderCamera";
     private static ShaderTagId unlitShaderTagId = new ShaderTagId("SRPDefaultUnlit");
-    
+
     private ScriptableRenderContext context;
     private Camera camera;
     private  CommandBuffer buffer = new CommandBuffer{name = bufferName};
@@ -15,11 +15,16 @@ public class CameraRenderer {
         this.context = context;
         this.camera = camera;
         
+        BufferPreparation();
+        SceneWindowPreparation();
+        
         if(!Cull())
             return;
 
         Setup();
         DrawVisibleGeometry();
+        DrawUnsupportedShaders();
+        DrawGizmos();
         Submit();
     }
 
