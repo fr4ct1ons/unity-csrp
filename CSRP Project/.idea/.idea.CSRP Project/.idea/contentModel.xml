@@ -13,6 +13,15 @@
             <e p="CelShadedRenderPipeline.cs" t="Include" />
             <e p="CelShadedRenderPipelineAsset.cs" t="Include" />
           </e>
+          <e p="ShaderLibrary" t="Include">
+            <e p="Common.hlsl" t="Include" />
+            <e p="UnityInput.hlsl" t="Include" />
+          </e>
+          <e p="Shaders" t="Include">
+            <e p="LitPass.hlsl" t="Include" />
+            <e p="Unlit.shader" t="Include" />
+            <e p="UnlitPass.hlsl" t="Include" />
+          </e>
         </e>
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
