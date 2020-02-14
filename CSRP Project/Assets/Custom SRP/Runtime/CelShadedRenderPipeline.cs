@@ -9,6 +9,7 @@ public class CelShadedRenderPipeline : RenderPipeline
     public CelShadedRenderPipeline () 
     {
         GraphicsSettings.useScriptableRenderPipelineBatching = true;
+        GraphicsSettings.lightsUseLinearIntensity = true;
     }
     
     CameraRenderer renderer = new CameraRenderer();

@@ -55,19 +55,8 @@ float4 LitPassFragment (Varyings input) : SV_TARGET {
 	surface.color = base.rgb;
 	surface.alpha = base.a;
 	
-	float NdotL = dot(GetDirectionalLight().direction, surface.normal);
 	
-	float lightIntensity = 0.0;
-	if(NdotL <= 0)
-	{
-	    lightIntensity = 0.0;
-	}
-	else
-	{
-	    lightIntensity = 1.0;
-	}
-	
-	float3 color = GetIncomingLight(surface);
+	float3 color = GetLighting(surface);
 	
 	return float4(color, surface.alpha);
 }
