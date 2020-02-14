@@ -9,8 +9,9 @@ public partial class CameraRenderer {
 
     private ScriptableRenderContext context;
     private Camera camera;
-    private  CommandBuffer buffer = new CommandBuffer{name = bufferName};
+    private CommandBuffer buffer = new CommandBuffer{name = bufferName};
     private CullingResults cullingResults;
+    private Lighting lighting = new Lighting();
 
     public void Render (ScriptableRenderContext context, Camera camera) {
         this.context = context;
@@ -23,6 +24,7 @@ public partial class CameraRenderer {
             return;
 
         Setup();
+        lighting.Setup(context);
         DrawVisibleGeometry();
         DrawUnsupportedShaders();
         DrawGizmos();
@@ -51,6 +53,7 @@ public partial class CameraRenderer {
             criteria = SortingCriteria.CommonOpaque
         };
         DrawingSettings drawingSettings = new DrawingSettings(unlitShaderTagId, sortingSettings);
+        
         drawingSettings.SetShaderPassName(1, litShaderTagId);
         FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
         context.DrawRenderers(cullingResults, ref drawingSettings, ref filteringSettings);
