@@ -5,6 +5,11 @@ using UnityEngine.Rendering;
 
 public class CelShadedRenderPipeline : RenderPipeline
 {
+ 
+    public CelShadedRenderPipeline () 
+    {
+        GraphicsSettings.useScriptableRenderPipelineBatching = true;
+    }
     
     CameraRenderer renderer = new CameraRenderer();
     protected override void Render(ScriptableRenderContext context, Camera[] cameras)
