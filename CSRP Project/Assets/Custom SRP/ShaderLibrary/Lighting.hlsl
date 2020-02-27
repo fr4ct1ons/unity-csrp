@@ -19,17 +19,17 @@ float3 IncomingLightCelShaded (Surface surface, Light light, float3 worldPos, fl
 	rangeFade = saturate(1.0 - rangeFade * rangeFade);
 	rangeFade *= rangeFade;
 	
-	float lightIntensity = 0.0f;
+	float lightIntensity = 0.005f;
 	NdotL *= rangeFade/distanceSqr;
-	if(NdotL > 0)
+	if(NdotL > 0.01)
 	{
-	    if(NdotL < 0.5)
+	    if(NdotL < 0.4)
 	    {
-	        lightIntensity = 0.5 / distanceSqr;
+	        lightIntensity = 0.7;
 	    }
 	    else
 	    {
-	        lightIntensity = 1.0;
+	        lightIntensity = 1.5;
 	    }
 	}
 	
