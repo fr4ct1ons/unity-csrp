@@ -5,9 +5,12 @@ using UnityEngine.Rendering;
 
 public class CelShadedRenderPipeline : RenderPipeline
 {
- 
-    public CelShadedRenderPipeline () 
+    
+    ShadowSettings shadowSettings;
+
+    public CelShadedRenderPipeline (ShadowSettings shadows)
     {
+        shadowSettings = shadows;
         GraphicsSettings.useScriptableRenderPipelineBatching = true;
         GraphicsSettings.lightsUseLinearIntensity = true;
     }
@@ -17,7 +20,7 @@ public class CelShadedRenderPipeline : RenderPipeline
     {
         foreach (Camera camera in cameras)
         {
-            renderer.Render(context, camera);
+            renderer.Render(context, camera, shadowSettings);
         }
     }
 }
