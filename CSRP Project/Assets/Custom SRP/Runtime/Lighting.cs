@@ -6,17 +6,21 @@ public class Lighting {
 
     private const string bufferName = "Lighting";
     private const int maxDirLightCount = 200;
-    
+
     private static int
         dirLightCountId = Shader.PropertyToID("_DirectionalLightCount"),
         dirLightColorsId = Shader.PropertyToID("_DirectionalLightColors"),
         visibleLightDirectionsOrPositionsId = Shader.PropertyToID("_VisibleLightDirectionsOrPositions"),
-        visibleLightAttenuationsId = Shader.PropertyToID("_VisibleLightAttenuations");
+        visibleLightAttenuationsId = Shader.PropertyToID("_VisibleLightAttenuations"),
+        visibleLightRangesId = Shader.PropertyToID("_VisibleLightRanges");
     
     static Vector4[]
         dirLightColors = new Vector4[maxDirLightCount],
         visibleLightDirectionsOrPositions = new Vector4[maxDirLightCount],
         visibleLightAttenuations = new Vector4[maxDirLightCount];
+    
+    static float[]
+        visibleLightIntensities = new float[maxDirLightCount];
 
     private CommandBuffer buffer = new CommandBuffer {
         name = bufferName
@@ -42,6 +46,9 @@ public class Lighting {
         for (int i = 0; i < visibleLights.Length; i++) {
             VisibleLight visibleLight = visibleLights[i];
             Vector4 attenuation = Vector4.zero;
+
+            visibleLightIntensities[i] = visibleLight.light.range;
+            
             if (visibleLight.lightType == LightType.Directional)
             {
                 SetupDirectionalLight(dirLightCount++, ref visibleLight);
@@ -62,6 +69,7 @@ public class Lighting {
         buffer.SetGlobalVectorArray(dirLightColorsId, dirLightColors);
         buffer.SetGlobalVectorArray(visibleLightDirectionsOrPositionsId, visibleLightDirectionsOrPositions);
         buffer.SetGlobalVectorArray(visibleLightAttenuationsId, visibleLightAttenuations);
+        buffer.SetGlobalFloatArray(visibleLightRangesId, visibleLightIntensities);
         /*Light light = RenderSettings.sun;
         buffer.SetGlobalVector(dirLightColorId, light.color.linear * light.intensity);
         buffer.SetGlobalVector(dirLightDirectionId, -light.transform.forward);*/
