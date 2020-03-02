@@ -12,13 +12,13 @@ ASAP I will write a proper license for this package, but for now, you are free t
 
 ## Roadmap (possible)  
 0.1.x - The origins: Created the project with cel-shaded support for a single direcitonal light ✔️✔️  
-0.2.x - The batching update I: Basic GPU batching ✔️✔️  
-0.3.x - The point light update: Support for multiple lights ✔️  
+0.2.x - The batching update: Basic GPU batching ✔️✔️  
+0.3.x - The point light update: Support for multiple point lights ✔️  
 0.4.x - The shadow update: Lit materials can receive shadows ❌  
 0.5.x - The normal map update: Lit materials can support normal maps ❌  
 0.6.x - The specular update: Lit materials can support specular maps & highlights ❌  
 0.7.x - The post-processed update: Post-process now available with the pipeline ❌  
-0.8.x - The batching update II: Better GPU batching ❌  
+0.8.x - The baked update: Adding baked shadows and other light types ❌  
 0.9.x - The polishing update: General polishing (multiple light bands, other details, testing everything out etc) ❌  
 1.x.y - The final update: Documentation, tutorials and release! ❌  
   
