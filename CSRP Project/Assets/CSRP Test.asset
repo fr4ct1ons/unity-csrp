@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7528d2c2358be89408370a89829ae3cd, type: 3}
   m_Name: CSRP Test
   m_EditorClassIdentifier: 
+  shadows:
+    maxDistance: 100
+    directional:
+      atlasSize: 1024

@@ -11,7 +11,7 @@ float3 IncomingLightCelShaded (Surface surface, Light light, float3 worldPos, fl
 
 	float3 lightVec = light.directionOrPosition.xyz - worldPos * light.directionOrPosition.w;
 	float3 lightDir = normalize(lightVec);
-    float NdotL = saturate(dot(surface.normal, lightDir));
+    float NdotL = saturate(dot(surface.normal, lightDir) * light.attenuation);
     
     float distanceSqr = max(dot(lightVec, lightVec), 0.00001);
     
@@ -42,10 +42,11 @@ float3 GetLighting (Surface surface, Light light, float3 worldPos,  float3 light
 	return IncomingLightCelShaded(surface, light, worldPos, lightAttenuation) * surface.color;
 }
 
-float3 GetLighting (Surface surface, float3 worldPos) {
+float3 GetLighting (Surface surface, float3 worldPos)
+{
 	float3 color = 0.0;
 	for (int i = 0; i < GetDirectionalLightCount(); i++) {
-		color += GetLighting(surface, GetDirectionalLight(i), worldPos, _VisibleLightAttenuations[i]);
+		color += GetLighting(surface, GetDirectionalLight(i, surface), worldPos, _VisibleLightAttenuations[i]);
 	}
 	return color;
 }

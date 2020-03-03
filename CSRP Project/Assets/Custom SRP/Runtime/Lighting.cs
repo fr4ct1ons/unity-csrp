@@ -12,12 +12,14 @@ public class Lighting {
         dirLightColorsId = Shader.PropertyToID("_DirectionalLightColors"),
         visibleLightDirectionsOrPositionsId = Shader.PropertyToID("_VisibleLightDirectionsOrPositions"),
         visibleLightAttenuationsId = Shader.PropertyToID("_VisibleLightAttenuations"),
-        visibleLightRangesId = Shader.PropertyToID("_VisibleLightRanges");
+        visibleLightRangesId = Shader.PropertyToID("_VisibleLightRanges"),
+        dirLightShadowDataId = Shader.PropertyToID("_DirectionalLightShadowData");
     
     static Vector4[]
         dirLightColors = new Vector4[maxDirLightCount],
         visibleLightDirectionsOrPositions = new Vector4[maxDirLightCount],
-        visibleLightAttenuations = new Vector4[maxDirLightCount];
+        visibleLightAttenuations = new Vector4[maxDirLightCount],
+        dirLightShadowData = new Vector4[maxDirLightCount];
     
     static float[]
         visibleLightIntensities = new float[maxDirLightCount];
@@ -77,6 +79,7 @@ public class Lighting {
         buffer.SetGlobalVectorArray(visibleLightDirectionsOrPositionsId, visibleLightDirectionsOrPositions);
         buffer.SetGlobalVectorArray(visibleLightAttenuationsId, visibleLightAttenuations);
         buffer.SetGlobalFloatArray(visibleLightRangesId, visibleLightIntensities);
+        buffer.SetGlobalVectorArray(dirLightShadowDataId, dirLightShadowData);
         /*Light light = RenderSettings.sun;
         buffer.SetGlobalVector(dirLightColorId, light.color.linear * light.intensity);
         buffer.SetGlobalVector(dirLightDirectionId, -light.transform.forward);*/
@@ -86,7 +89,7 @@ public class Lighting {
     {
         dirLightColors[index] = visibleLight.finalColor;
         visibleLightDirectionsOrPositions[index] = -visibleLight.localToWorldMatrix.GetColumn(2);
-        shadows.ReserveDirectionalShadows(visibleLight.light, index);
+        dirLightShadowData[index] = shadows.ReserveDirectionalShadows(visibleLight.light, index);
     }
 
     void SetupPointLight(int index, ref VisibleLight visibleLight)

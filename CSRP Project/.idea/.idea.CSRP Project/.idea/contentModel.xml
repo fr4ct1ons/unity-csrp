@@ -20,12 +20,14 @@
             <e p="Common.hlsl" t="Include" />
             <e p="Light.hlsl" t="Include" />
             <e p="Lighting.hlsl" t="Include" />
+            <e p="Shadows.hlsl" t="Include" />
             <e p="Surface.hlsl" t="Include" />
             <e p="UnityInput.hlsl" t="Include" />
           </e>
           <e p="Shaders" t="Include">
             <e p="Lit.shader" t="Include" />
             <e p="LitPass.hlsl" t="Include" />
+            <e p="ShadowCasterPass.hlsl" t="Include" />
             <e p="Unlit.shader" t="Include" />
             <e p="UnlitPass.hlsl" t="Include" />
           </e>
