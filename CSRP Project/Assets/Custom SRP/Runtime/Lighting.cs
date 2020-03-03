@@ -35,9 +35,14 @@ public class Lighting {
         buffer.BeginSample(bufferName);
         shadows.Setup(context, cullingResults, shadowSettings);
         SetupLights();
+        shadows.Render();
         buffer.EndSample(bufferName);
         context.ExecuteCommandBuffer(buffer);
         buffer.Clear();
+    }
+    
+    public void Cleanup () {
+        shadows.Cleanup();
     }
 
     void SetupLights()

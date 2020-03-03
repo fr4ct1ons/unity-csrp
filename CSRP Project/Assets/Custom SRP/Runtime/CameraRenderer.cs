@@ -22,9 +22,12 @@ public partial class CameraRenderer {
         
         if(!Cull(shadowSettings.maxDistance))
             return;
-
-        Setup();
+        
+        buffer.BeginSample(bufferName);
+        ExecuteBuffer();
         lighting.Setup(context, cullingResults, shadowSettings);
+        buffer.EndSample(bufferName);
+        Setup();
         DrawVisibleGeometry();
         DrawUnsupportedShaders();
         DrawGizmos();
