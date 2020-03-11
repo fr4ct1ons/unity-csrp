@@ -1,7 +1,7 @@
 ﻿#ifndef CUSTOM_LIGHTING_INCLUDED
 #define CUSTOM_LIGHTING_INCLUDED
 
-float3 IncomingLight (Surface surface, Light light, float3 worldPos) {
+float3 IncomingLight (Surface surface, Light light, float3 worldPos,  float3 lightAttenuation) {
 	float3 lightVec = light.directionOrPosition.xyz - worldPos * light.directionOrPosition.w;
 	float3 lightDir = normalize(lightVec);
 	return saturate(dot(surface.normal, lightDir)) * light.color;

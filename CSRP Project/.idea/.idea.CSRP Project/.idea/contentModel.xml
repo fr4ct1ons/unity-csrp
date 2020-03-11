@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Lucena\.Rider2019.2\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Lucena\.Rider2019.2\system\resharper-host\local\Transient\ReSharperHost\v192\SolutionCaches\_CSRP Project.753685971.00" t="ExcludeRecursive" />
-    <e p="E:\Lucena\Documents\Repositories\unity-csrp\CSRP Project" t="IncludeRecursive">
+    <e p="C:\Users\gabri\.Rider2019.3\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\gabri\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_CSRP Project.1273879418.00" t="ExcludeRecursive" />
+    <e p="C:\Users\gabri\Documents\Repositories\unity-csrp\CSRP Project" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Custom SRP" t="Include">
