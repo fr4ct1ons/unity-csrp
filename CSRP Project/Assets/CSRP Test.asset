@@ -17,6 +17,6 @@ MonoBehaviour:
     directional:
       atlasSize: 512
       cascadeCount: 4
-      cascadeRatio1: 0.1
-      cascadeRatio2: 0.25
+      cascadeRatio1: 0.3
+      cascadeRatio2: 0.4
       cascadeRatio3: 0.5
