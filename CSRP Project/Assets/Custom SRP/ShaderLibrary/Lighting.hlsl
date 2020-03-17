@@ -39,14 +39,17 @@ float3 IncomingLightCelShaded (Surface surface, Light light, float3 worldPos, fl
 }
 
 float3 GetLighting (Surface surface, Light light, float3 worldPos,  float3 lightAttenuation) {
-	return IncomingLightCelShaded(surface, light, worldPos, lightAttenuation) * surface.color;
+	return IncomingLight(surface, light, worldPos, lightAttenuation) * surface.color;
 }
 
 float3 GetLighting (Surface surface, float3 worldPos)
 {
+    ShadowData shadowData = GetShadowData(surface);
 	float3 color = 0.0;
-	for (int i = 0; i < GetDirectionalLightCount(); i++) {
-		color += GetLighting(surface, GetDirectionalLight(i, surface), worldPos, _VisibleLightAttenuations[i]);
+	for (int i = 0; i < GetDirectionalLightCount(); i++) 
+	{
+	    Light light = GetDirectionalLight(i, surface, shadowData);
+		color += GetLighting(surface, light, worldPos, _VisibleLightAttenuations[i]);
 	}
 	return color;
 }

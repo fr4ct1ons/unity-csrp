@@ -12,7 +12,12 @@ public class Shadows {
         new ShadowedDirectionalLight[maxShadowedDirectionalLightCount];
     
     static int dirShadowAtlasId = Shader.PropertyToID("_DirectionalShadowAtlas"),
-        dirShadowMatricesId = Shader.PropertyToID("_DirectionalShadowMatrices");
+        dirShadowMatricesId = Shader.PropertyToID("_DirectionalShadowMatrices"),
+        cascadeCountId = Shader.PropertyToID("_CascadeCount"),
+        cascadeCullingSpheresId = Shader.PropertyToID("_CascadeCullingSpheres");
+    
+    static Vector4[] 
+        cascadeCullingSpheres = new Vector4[maxCascades];
     
     static Matrix4x4[]
         dirShadowMatrices = new Matrix4x4[maxShadowedDirectionalLightCount * maxCascades];
@@ -68,6 +73,10 @@ public class Shadows {
             RenderDirectionalShadows(i, split, atlasSize);
         }
         
+        buffer.SetGlobalInt(cascadeCountId, settings.directional.cascadeCount);
+        buffer.SetGlobalVectorArray(
+            cascadeCullingSpheresId, cascadeCullingSpheres
+        );
         buffer.SetGlobalMatrixArray(dirShadowMatricesId, dirShadowMatrices);
         buffer.EndSample(bufferName);
         ExecuteBuffer();
@@ -90,9 +99,19 @@ public class Shadows {
                 out ShadowSplitData splitData
             );
             shadowSettings.splitData = splitData;
+            
+            if (index == 0)
+            {
+                Vector4 cullingSphere = splitData.cullingSphere;
+                cullingSphere.w *= cullingSphere.w;
+                cascadeCullingSpheres[i] = cullingSphere;
+            }
+            
             int tileIndex = tileOffset + i;
             dirShadowMatrices[tileIndex] = ConvertToAtlasMatrix(projectionMatrix * viewMatrix,
                 SetTileViewport(tileIndex, split, atlasSize), split);
+            
+            
             buffer.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
             ExecuteBuffer();
             context.DrawShadows(ref shadowSettings);
@@ -128,10 +147,10 @@ public class Shadows {
         m.m11 = (0.5f * (m.m11 + m.m31) + offset.y * m.m31) * scale;
         m.m12 = (0.5f * (m.m12 + m.m32) + offset.y * m.m32) * scale;
         m.m13 = (0.5f * (m.m13 + m.m33) + offset.y * m.m33) * scale;
-        m.m20 = (0.5f * (m.m20 + m.m30) + offset.y * m.m33) * scale;
-        m.m21 = (0.5f * (m.m21 + m.m31) + offset.y * m.m33) * scale;
-        m.m22 = (0.5f * (m.m22 + m.m32) + offset.y * m.m33) * scale;
-        m.m23 = (0.5f * (m.m23 + m.m33) + offset.y * m.m33) * scale;
+        m.m20 = 0.5f * (m.m20 + m.m30);
+		m.m21 = 0.5f * (m.m21 + m.m31);
+		m.m22 = 0.5f * (m.m22 + m.m32);
+		m.m23 = 0.5f * (m.m23 + m.m33);
         return m;
     }
     
