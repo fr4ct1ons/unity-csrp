@@ -29,38 +29,43 @@ partial class CameraRenderer {
 	string SampleName { get; set; }
 
 	partial void DrawGizmos () {
-		if (Handles.ShouldRenderGizmos()) {
+		if (Handles.ShouldRenderGizmos()) 
+		{
 			context.DrawGizmos(camera, GizmoSubset.PreImageEffects);
 			context.DrawGizmos(camera, GizmoSubset.PostImageEffects);
 		}
 	}
 
-	partial void DrawUnsupportedShaders () {
-		if (errorMaterial == null) {
+	partial void DrawUnsupportedShaders () 
+	{
+		if (errorMaterial == null) 
+		{
 			errorMaterial =
 				new Material(Shader.Find("Hidden/InternalErrorShader"));
 		}
-		var drawingSettings = new DrawingSettings(
-			legacyShaderTagIds[0], new SortingSettings(camera)
-		) {
+		var drawingSettings = new DrawingSettings(legacyShaderTagIds[0], new SortingSettings(camera)) 
+		{
 			overrideMaterial = errorMaterial
 		};
+		
 		for (int i = 1; i < legacyShaderTagIds.Length; i++) {
 			drawingSettings.SetShaderPassName(i, legacyShaderTagIds[i]);
 		}
+		
 		var filteringSettings = FilteringSettings.defaultValue;
-		context.DrawRenderers(
-			cullingResults, ref drawingSettings, ref filteringSettings
-		);
+		context.DrawRenderers(cullingResults, ref drawingSettings, ref filteringSettings);
 	}
 
-	partial void PrepareForSceneWindow () {
-		if (camera.cameraType == CameraType.SceneView) {
+	partial void PrepareForSceneWindow () 
+	{
+		if (camera.cameraType == CameraType.SceneView) 
+		{
 			ScriptableRenderContext.EmitWorldGeometryForSceneView(camera);
 		}
 	}
 
-	partial void PrepareBuffer () {
+	partial void PrepareBuffer () 
+	{
 		Profiler.BeginSample("Editor Only");
 		buffer.name = SampleName = camera.name;
 		Profiler.EndSample();

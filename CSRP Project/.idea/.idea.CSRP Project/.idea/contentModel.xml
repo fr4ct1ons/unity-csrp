@@ -11,10 +11,6 @@
           <e p="Editor" t="Include">
             <e p="CustomShaderGUI.cs" t="Include" />
           </e>
-          <e p="Examples" t="Include">
-            <e p="MeshBall.cs" t="Include" />
-            <e p="PerObjectMaterialProperties.cs" t="Include" />
-          </e>
           <e p="Runtime" t="Include">
             <e p="CameraRenderer.cs" t="Include" />
             <e p="CameraRenderer.Editor.cs" t="Include" />
