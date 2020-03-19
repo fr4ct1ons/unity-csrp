@@ -59,20 +59,12 @@ float4 LitPassFragment (Varyings input) : SV_TARGET {
 	Surface surface;
 	surface.position = input.positionWS;
 	surface.normal = normalize(input.normalWS);
-	surface.viewDirection = normalize(_WorldSpaceCameraPos - input.positionWS);
 	surface.depth = -TransformWorldToView(input.positionWS).z;
 	surface.color = base.rgb;
 	surface.alpha = base.a;
-	surface.metallic = UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial, _Metallic);
-	surface.smoothness =
-		UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial, _Smoothness);
 	surface.dither = InterleavedGradientNoise(input.positionCS.xy, 0);
-	#if defined(_PREMULTIPLY_ALPHA)
-		BRDF brdf = GetBRDF(surface, true);
-	#else
-		BRDF brdf = GetBRDF(surface);
-	#endif
-	float3 color = GetLighting(surface, brdf);
+
+	float3 color = GetLighting(surface);
 	return float4(color, surface.alpha);
 }
 

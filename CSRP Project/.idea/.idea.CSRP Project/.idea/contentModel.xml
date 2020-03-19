@@ -21,7 +21,6 @@
             <e p="ShadowSettings.cs" t="Include" />
           </e>
           <e p="ShaderLibrary" t="Include">
-            <e p="BRDF.hlsl" t="Include" />
             <e p="Common.hlsl" t="Include" />
             <e p="Light.hlsl" t="Include" />
             <e p="Lighting.hlsl" t="Include" />
