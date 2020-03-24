@@ -3,7 +3,12 @@
 
 float3 IncomingLight (Surface surface, Light light)
 {
-	float NdotL = saturate(dot(surface.normal, light.direction) * light.attenuation);
+    float3 lightVector = light.directionOrPosition.xyz - surface.position * light.directionOrPosition.w;
+    float3 lightDirection = normalize(lightVector);
+    
+    float distanceSqr = max(dot(lightVector, lightVector), 0.00001);
+	float NdotL = saturate(dot(surface.normal, lightDirection) * light.attenuation);
+	NdotL /= distanceSqr;
 
 	float lightIntensity = 0.01;
 	if(NdotL > 0.1)
