@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
 
-public class CustomRenderPipeline : RenderPipeline {
+public class CelShadedRenderPipeline : RenderPipeline {
 
 	private CameraRenderer renderer = new CameraRenderer();
 
@@ -11,7 +11,7 @@ public class CustomRenderPipeline : RenderPipeline {
 
 	private float defaultShadowBrightness;
 
-	public CustomRenderPipeline (bool useDynamicBatching, bool useGPUInstancing, bool useSRPBatcher,ShadowSettings shadowSettings, float defaultShadowBrightness) 
+	public CelShadedRenderPipeline (bool useDynamicBatching, bool useGPUInstancing, bool useSRPBatcher,ShadowSettings shadowSettings, float defaultShadowBrightness) 
 	{
 		this.shadowSettings = shadowSettings;
 		this.useDynamicBatching = useDynamicBatching;

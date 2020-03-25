@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.Rendering;
 
-[CreateAssetMenu(menuName = "Rendering/Custom Render Pipeline")]
-public class CustomRenderPipelineAsset : RenderPipelineAsset {
+[CreateAssetMenu(menuName = "Rendering/Cel-Shaded Render Pipeline")]
+public class CelShadedRenderPipelineAsset : RenderPipelineAsset {
 	
 	public bool useDynamicBatching = true, useGPUInstancing = true, useSRPBatcher = true;
 	
@@ -12,6 +12,6 @@ public class CustomRenderPipelineAsset : RenderPipelineAsset {
 
 	protected override RenderPipeline CreatePipeline () 
 	{
-		return new CustomRenderPipeline(useDynamicBatching, useGPUInstancing, useSRPBatcher, shadows, defaultShadowBrightness);
+		return new CelShadedRenderPipeline(useDynamicBatching, useGPUInstancing, useSRPBatcher, shadows, defaultShadowBrightness);
 	}
 }

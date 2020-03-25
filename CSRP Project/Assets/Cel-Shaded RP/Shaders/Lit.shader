@@ -1,11 +1,14 @@
-﻿Shader "Custom RP/Unlit" {
+﻿Shader "Cel-Shaded RP/Lit" {
 	
 	Properties {
 		_BaseMap("Texture", 2D) = "white" {}
-		_BaseColor("Color", Color) = (1.0, 1.0, 1.0, 1.0)
+		_BaseColor("Color", Color) = (0.5, 0.5, 0.5, 1.0)
+		_NormalMap("Normal Map", 2D) = "bump" {}
 		_Cutoff ("Alpha Cutoff", Range(0.0, 1.0)) = 0.5
 		[Toggle(_CLIPPING)] _Clipping ("Alpha Clipping", Float) = 0
+		[Toggle(_RECEIVE_SHADOWS)] _ReceiveShadows ("Receive Shadows", Float) = 1
 		[KeywordEnum(On, Clip, Dither, Off)] _Shadows ("Shadows", Float) = 0
+		[MaterialToggle] _CelShaded ("Cel Shading", Float) = 1
 
 		[Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend ("Src Blend", Float) = 1
 		[Enum(UnityEngine.Rendering.BlendMode)] _DstBlend ("Dst Blend", Float) = 0
@@ -14,16 +17,24 @@
 	
 	SubShader {
 		Pass {
+			Tags {
+				"LightMode" = "CustomLit"
+			}
+
 			Blend [_SrcBlend] [_DstBlend]
 			ZWrite [_ZWrite]
 
 			HLSLPROGRAM
 			#pragma target 3.5
 			#pragma shader_feature _CLIPPING
+			#pragma shader_feature _RECEIVE_SHADOWS
+			#pragma shader_feature _PREMULTIPLY_ALPHA
+			#pragma multi_compile _ _DIRECTIONAL_PCF3 _DIRECTIONAL_PCF5 _DIRECTIONAL_PCF7
+			#pragma multi_compile _ _CASCADE_BLEND_SOFT _CASCADE_BLEND_DITHER
 			#pragma multi_compile_instancing
-			#pragma vertex UnlitPassVertex
-			#pragma fragment UnlitPassFragment
-			#include "UnlitPass.hlsl"
+			#pragma vertex LitPassVertex
+			#pragma fragment LitPassFragment
+			#include "LitPass.hlsl"
 			ENDHLSL
 		}
 

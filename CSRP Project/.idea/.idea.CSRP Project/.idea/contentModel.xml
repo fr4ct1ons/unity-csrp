@@ -14,8 +14,8 @@
           <e p="Runtime" t="Include">
             <e p="CameraRenderer.cs" t="Include" />
             <e p="CameraRenderer.Editor.cs" t="Include" />
-            <e p="CustomRenderPipeline.cs" t="Include" />
-            <e p="CustomRenderPipelineAsset.cs" t="Include" />
+            <e p="CelShadedRenderPipeline.cs" t="Include" />
+            <e p="CelShadedRenderPipelineAsset.cs" t="Include" />
             <e p="Lighting.cs" t="Include" />
             <e p="Shadows.cs" t="Include" />
             <e p="ShadowSettings.cs" t="Include" />
