@@ -1,6 +1,8 @@
 ﻿#ifndef CUSTOM_LIGHTING_INCLUDED
 #define CUSTOM_LIGHTING_INCLUDED
 
+float lightIntensity = 0.01;
+
 float3 IncomingLight (Surface surface, Light light, float isCelShaded)
 {
     float3 lightVector = light.directionOrPosition.xyz - surface.position * light.directionOrPosition.w;
@@ -17,7 +19,6 @@ float3 IncomingLight (Surface surface, Light light, float isCelShaded)
 
     if(isCelShaded != 0.0)
     {
-        float lightIntensity = 0.01;
         if(NdotL > (0.15 * light.range.x + light.range.y))
         {
             lightIntensity = 1;

@@ -13,7 +13,8 @@ public class Lighting {
 		dirLightColorsId = Shader.PropertyToID("_DirectionalLightColors"),
 		dirLightDirectionsOrPositionsId = Shader.PropertyToID("_DirectionalLightDirectionsOrPositions"),
 		dirLightShadowDataId = Shader.PropertyToID("_DirectionalLightShadowData"),
-		dirLightRangeId = Shader.PropertyToID("_DirectionalLightRange");
+		dirLightRangeId = Shader.PropertyToID("_DirectionalLightRange"),
+		defaultShadowBrightnesId = Shader.PropertyToID("lightIntensity");
 			
 	private static Vector4[]
 		dirLightColors = new Vector4[maxDirLightCount],
@@ -30,12 +31,12 @@ public class Lighting {
 
 	private Shadows shadows = new Shadows();
 
-	public void Setup (ScriptableRenderContext context, CullingResults cullingResults,ShadowSettings shadowSettings) 
+	public void Setup (ScriptableRenderContext context, CullingResults cullingResults,ShadowSettings shadowSettings, float defaultShadowBrightness) 
 	{
 		this.cullingResults = cullingResults;
 		buffer.BeginSample(bufferName);
 		shadows.Setup(context, cullingResults, shadowSettings);
-		SetupLights();
+		SetupLights(defaultShadowBrightness);
 		shadows.Render();
 		buffer.EndSample(bufferName);
 		context.ExecuteCommandBuffer(buffer);
@@ -47,7 +48,7 @@ public class Lighting {
 		shadows.Cleanup();
 	}
 
-	private void SetupLights () 
+	private void SetupLights (float defaultShadowBrightness) 
 	{
 		NativeArray<VisibleLight> visibleLights = cullingResults.visibleLights;
 		int dirLightCount = 0;
@@ -65,6 +66,7 @@ public class Lighting {
 			}
 		}
 
+		buffer.SetGlobalFloat(defaultShadowBrightnesId, defaultShadowBrightness);
 		buffer.SetGlobalInt(dirLightCountId, dirLightCount);
 		buffer.SetGlobalVectorArray(dirLightColorsId, dirLightColors);
 		buffer.SetGlobalVectorArray(dirLightDirectionsOrPositionsId, dirLightDirectionsOrPositions);
