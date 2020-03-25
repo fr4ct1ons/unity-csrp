@@ -4,6 +4,7 @@
 struct Surface {
 	float3 position;
 	float3 normal;
+	float3 tNormal;
 	float depth;
 	float3 color;
     float alpha;

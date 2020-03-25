@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: mat_cheek
   m_Shader: {fileID: 4800000, guid: d2c448af154f94dda8a9c42d2b0171f0, type: 3}
-  m_ShaderKeywords: _RECEIVE_SHADOWS _SHADOWS_ON
+  m_ShaderKeywords: _CELSHADED_ON _RECEIVE_SHADOWS _SHADOWS_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -65,6 +65,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
+    - _CelShaded: 1
     - _Clipping: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
