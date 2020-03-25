@@ -8,10 +8,11 @@ With Unity abandoning the built-in render pipeline in favor of the new Universal
 Special thanks to [Jasper Flick](https://catlikecoding.com/) for his amazing tutorials on rendering and SRP. Without his work, none of this would be possible!
 
 ## License
-ASAP I will write a proper license for this package, but for now, you are free to use this package with any **non-profit product**. This means that if you are to profit from any project/product then you are not eligible to use the CSRP.  If you are not profitting in any way from this then you can use it for whatever you want as long as you modify it. Also, you don't have to credit me if you use the CSRP but please consider doing so, it helps a lot!  
+Just don't modify the source code and publically provide its modifications and you can do whatever you want with it. This includes commercial use.
 
-## Roadmap 
-To be made.
+## Roadmap
+Right now I want to add point light shadows as soon as possible. After that I will add BRDF to the lit shader.  
+I guess that's all for now? Consider this the simplest roadmap out there.
  
 ## Contact
 For now, you can contact me at https://twitter.com/fr4ct1ons or at my GitHub page.
