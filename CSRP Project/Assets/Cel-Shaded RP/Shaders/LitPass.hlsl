@@ -54,9 +54,9 @@ Varyings LitPassVertex (Attributes input) {
 	float3 wTangent = TransformObjectToWorldDir(input.tangent.xyz);
 	float tangentSign = input.tangent.w * unity_WorldTransformParams.w;
 	float3 wBitangent = cross(output.normalWS, wTangent) * tangentSign;
-	output.tspace0 = half3(wTangent.x, wBitangent.x, output.normalWS.x);
-    output.tspace1 = half3(wTangent.y, wBitangent.y, output.normalWS.y);
-    output.tspace2 = half3(wTangent.z, wBitangent.z, output.normalWS.z);
+	output.tspace0 = float3(wTangent.x, wBitangent.x, output.normalWS.x);
+    output.tspace1 = float3(wTangent.y, wBitangent.y, output.normalWS.y);
+    output.tspace2 = float3(wTangent.z, wBitangent.z, output.normalWS.z);
 	return output;
 }
 
@@ -70,10 +70,14 @@ float4 LitPassFragment (Varyings input) : SV_TARGET {
 	#endif
 	
 	float3 tNormal = SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.baseUV);
+	
+	tNormal *= 2;
+	tNormal -= 1;
 
 	Surface surface;
 	surface.position = input.positionWS;
 	surface.normal = normalize(input.normalWS);
+
 	surface.normal.x = dot(input.tspace0, tNormal);
 	surface.normal.y = dot(input.tspace1, tNormal);
 	surface.normal.z = dot(input.tspace2, tNormal);
