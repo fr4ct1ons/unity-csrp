@@ -9,15 +9,17 @@ public class CelShadedRenderPipeline : RenderPipeline {
 
 	private ShadowSettings shadowSettings;
 
-	private float defaultShadowBrightness, brightnessMultiplier;
+	private float defaultShadowBrightness, brightnessMultiplier, shadowTreshold;
 
-	public CelShadedRenderPipeline (bool useDynamicBatching, bool useGPUInstancing, bool useSRPBatcher,ShadowSettings shadowSettings, float defaultShadowBrightness, float brightnessMultiplier) 
+	public CelShadedRenderPipeline (bool useDynamicBatching, bool useGPUInstancing, bool useSRPBatcher,ShadowSettings shadowSettings,
+		float defaultShadowBrightness, float brightnessMultiplier, float shadowTreshold) 
 	{
 		this.shadowSettings = shadowSettings;
 		this.useDynamicBatching = useDynamicBatching;
 		this.useGPUInstancing = useGPUInstancing;
 		this.defaultShadowBrightness = defaultShadowBrightness;
 		this.brightnessMultiplier = brightnessMultiplier;
+		this.shadowTreshold = shadowTreshold;
 		GraphicsSettings.useScriptableRenderPipelineBatching = useSRPBatcher;
 		GraphicsSettings.lightsUseLinearIntensity = true;
 	}
@@ -26,7 +28,7 @@ public class CelShadedRenderPipeline : RenderPipeline {
 	{
 		foreach (Camera camera in cameras) 
 		{
-			renderer.Render(context, camera, useDynamicBatching, useGPUInstancing,shadowSettings, defaultShadowBrightness, brightnessMultiplier);
+			renderer.Render(context, camera, useDynamicBatching, useGPUInstancing,shadowSettings, defaultShadowBrightness, brightnessMultiplier, shadowTreshold);
 		}
 	}
 }

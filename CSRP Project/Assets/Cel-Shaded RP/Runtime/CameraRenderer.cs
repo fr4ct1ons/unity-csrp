@@ -9,6 +9,11 @@ public partial class CameraRenderer {
 		unlitShaderTagId = new ShaderTagId("SRPDefaultUnlit"),
 		litShaderTagId = new ShaderTagId("CustomLit");
 
+	private static int
+		defaultShadowBrightnesId = Shader.PropertyToID("lightIntensity"),
+		brightnessMultiplierId = Shader.PropertyToID("brightness"), 
+		shadowTresholdId = Shader.PropertyToID("shadowTreshold");
+
 	private CommandBuffer buffer = new CommandBuffer {
 		name = bufferName
 	};
@@ -21,7 +26,8 @@ public partial class CameraRenderer {
 
 	private Lighting lighting = new Lighting();
 
-	public void Render (ScriptableRenderContext context, Camera camera,bool useDynamicBatching, bool useGPUInstancing,ShadowSettings shadowSettings, float defaultShadowBrightness, float brightnessMultiplier) 
+	public void Render (ScriptableRenderContext context, Camera camera,bool useDynamicBatching, bool useGPUInstancing,ShadowSettings shadowSettings, 
+		float defaultShadowBrightness, float brightnessMultiplier, float shadowTreshold) 
 	{
 		this.context = context;
 		this.camera = camera;
@@ -35,7 +41,10 @@ public partial class CameraRenderer {
 		
 		buffer.BeginSample(SampleName);
 		ExecuteBuffer();
-		lighting.Setup(context, cullingResults, shadowSettings, defaultShadowBrightness, brightnessMultiplier);
+		lighting.Setup(context, cullingResults, shadowSettings);
+		buffer.SetGlobalFloat(defaultShadowBrightnesId, defaultShadowBrightness);
+		buffer.SetGlobalFloat(brightnessMultiplierId, brightnessMultiplier);
+		buffer.SetGlobalFloat(shadowTresholdId, shadowTreshold);
 		buffer.EndSample(SampleName);
 		Setup();
 		DrawVisibleGeometry(useDynamicBatching, useGPUInstancing);
