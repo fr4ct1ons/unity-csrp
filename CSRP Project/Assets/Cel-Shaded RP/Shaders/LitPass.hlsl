@@ -87,7 +87,7 @@ float4 LitPassFragment (Varyings input) : SV_TARGET {
 	surface.alpha = base.a;
 	surface.dither = InterleavedGradientNoise(input.positionCS.xy, 0);
 
-	float3 color = GetLighting(surface, _CelShaded);
+	float3 color = GetLighting(surface, UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial, _CelShaded));
 	return float4(color, surface.alpha);
 }
 

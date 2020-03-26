@@ -2,6 +2,7 @@
 #define CUSTOM_LIGHTING_INCLUDED
 
 float lightIntensity = 0.01;
+float brightness;
 
 float3 IncomingLight (Surface surface, Light light, float isCelShaded, float passedLightIntensity)
 {
@@ -21,7 +22,7 @@ float3 IncomingLight (Surface surface, Light light, float isCelShaded, float pas
     {
         if(NdotL > (0.15 * light.range.x + light.range.y))
         {
-            passedLightIntensity = 0.7;
+            passedLightIntensity = brightness;
         }
         else if(passedLightIntensity != 0)
             return passedLightIntensity * surface.color;

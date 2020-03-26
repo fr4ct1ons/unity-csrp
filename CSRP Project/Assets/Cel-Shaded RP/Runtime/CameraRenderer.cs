@@ -21,7 +21,7 @@ public partial class CameraRenderer {
 
 	private Lighting lighting = new Lighting();
 
-	public void Render (ScriptableRenderContext context, Camera camera,bool useDynamicBatching, bool useGPUInstancing,ShadowSettings shadowSettings, float defaultShadowBrightness) 
+	public void Render (ScriptableRenderContext context, Camera camera,bool useDynamicBatching, bool useGPUInstancing,ShadowSettings shadowSettings, float defaultShadowBrightness, float brightnessMultiplier) 
 	{
 		this.context = context;
 		this.camera = camera;
@@ -35,7 +35,7 @@ public partial class CameraRenderer {
 		
 		buffer.BeginSample(SampleName);
 		ExecuteBuffer();
-		lighting.Setup(context, cullingResults, shadowSettings, defaultShadowBrightness);
+		lighting.Setup(context, cullingResults, shadowSettings, defaultShadowBrightness, brightnessMultiplier);
 		buffer.EndSample(SampleName);
 		Setup();
 		DrawVisibleGeometry(useDynamicBatching, useGPUInstancing);

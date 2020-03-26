@@ -6,12 +6,12 @@ public class CelShadedRenderPipelineAsset : RenderPipelineAsset {
 	
 	public bool useDynamicBatching = true, useGPUInstancing = true, useSRPBatcher = true;
 	
-	public float defaultShadowBrightness = 0.1f;
+	public float defaultShadowBrightness = 0.1f, brightnessMultiplier = 1.0f;
 
 	public ShadowSettings shadows = default;
 
 	protected override RenderPipeline CreatePipeline () 
 	{
-		return new CelShadedRenderPipeline(useDynamicBatching, useGPUInstancing, useSRPBatcher, shadows, defaultShadowBrightness);
+		return new CelShadedRenderPipeline(useDynamicBatching, useGPUInstancing, useSRPBatcher, shadows, defaultShadowBrightness, brightnessMultiplier);
 	}
 }

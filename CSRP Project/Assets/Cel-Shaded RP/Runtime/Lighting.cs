@@ -14,7 +14,8 @@ public class Lighting {
 		dirLightDirectionsOrPositionsId = Shader.PropertyToID("_DirectionalLightDirectionsOrPositions"),
 		dirLightShadowDataId = Shader.PropertyToID("_DirectionalLightShadowData"),
 		dirLightRangeId = Shader.PropertyToID("_DirectionalLightRange"),
-		defaultShadowBrightnesId = Shader.PropertyToID("lightIntensity");
+		defaultShadowBrightnesId = Shader.PropertyToID("lightIntensity"),
+		brightnessMultiplierId = Shader.PropertyToID("brightness");
 			
 	private static Vector4[]
 		dirLightColors = new Vector4[maxDirLightCount],
@@ -31,12 +32,12 @@ public class Lighting {
 
 	private Shadows shadows = new Shadows();
 
-	public void Setup (ScriptableRenderContext context, CullingResults cullingResults,ShadowSettings shadowSettings, float defaultShadowBrightness) 
+	public void Setup (ScriptableRenderContext context, CullingResults cullingResults,ShadowSettings shadowSettings, float defaultShadowBrightness, float brightnessMultiplier) 
 	{
 		this.cullingResults = cullingResults;
 		buffer.BeginSample(bufferName);
 		shadows.Setup(context, cullingResults, shadowSettings);
-		SetupLights(defaultShadowBrightness);
+		SetupLights(defaultShadowBrightness, brightnessMultiplier);
 		shadows.Render();
 		buffer.EndSample(bufferName);
 		context.ExecuteCommandBuffer(buffer);
@@ -48,7 +49,7 @@ public class Lighting {
 		shadows.Cleanup();
 	}
 
-	private void SetupLights (float defaultShadowBrightness) 
+	private void SetupLights (float defaultShadowBrightness, float brightnessMultiplier) 
 	{
 		NativeArray<VisibleLight> visibleLights = cullingResults.visibleLights;
 		int dirLightCount = 0;
@@ -67,6 +68,7 @@ public class Lighting {
 		}
 
 		buffer.SetGlobalFloat(defaultShadowBrightnesId, defaultShadowBrightness);
+		buffer.SetGlobalFloat(brightnessMultiplierId, brightnessMultiplier);
 		buffer.SetGlobalInt(dirLightCountId, dirLightCount);
 		buffer.SetGlobalVectorArray(dirLightColorsId, dirLightColors);
 		buffer.SetGlobalVectorArray(dirLightDirectionsOrPositionsId, dirLightDirectionsOrPositions);
