@@ -3,7 +3,7 @@
 
 float lightIntensity = 0.01;
 
-float3 IncomingLight (Surface surface, Light light, float isCelShaded)
+float3 IncomingLight (Surface surface, Light light, float isCelShaded, float passedLightIntensity)
 {
     float3 lightVector = light.directionOrPosition.xyz - surface.position * light.directionOrPosition.w;
     float3 lightDirection = normalize(lightVector);
@@ -21,24 +21,30 @@ float3 IncomingLight (Surface surface, Light light, float isCelShaded)
     {
         if(NdotL > (0.15 * light.range.x + light.range.y))
         {
-            lightIntensity = 1;
+            passedLightIntensity = 0.7;
         }
-        return lightIntensity * light.color * surface.color;
+        else if(passedLightIntensity != 0)
+            return passedLightIntensity * surface.color;
+            
+        return passedLightIntensity * light.color * surface.color;
 	}
 
 	return NdotL * light.color * surface.color;
 }
 
-float3 GetLighting (Surface surface, Light light, float isCelShaded) {
-	return IncomingLight(surface, light, isCelShaded);
+float3 GetLighting (Surface surface, Light light, float isCelShaded, float passedLightIntensity) {
+	return IncomingLight(surface, light, isCelShaded, passedLightIntensity);
 }
 
 float3 GetLighting (Surface surfaceWS, float isCelShaded) {
 	ShadowData shadowData = GetShadowData(surfaceWS);
-	float3 color = 0.0;
+	float3 color = 0;
 	for (int i = 0; i < GetDirectionalLightCount(); i++) {
 		Light light = GetDirectionalLight(i, surfaceWS, shadowData);
-		color += GetLighting(surfaceWS, light, isCelShaded);
+		if(i == 0)
+		color += GetLighting(surfaceWS, light, isCelShaded, lightIntensity);
+		else
+		color += GetLighting(surfaceWS, light, isCelShaded, 0);
 	}
 	return color;
 }

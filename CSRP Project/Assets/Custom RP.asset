@@ -15,7 +15,7 @@ MonoBehaviour:
   useDynamicBatching: 0
   useGPUInstancing: 1
   useSRPBatcher: 1
-  defaultShadowBrightness: 0.12
+  defaultShadowBrightness: 0.03
   shadows:
     maxDistance: 30
     distanceFade: 0.1
