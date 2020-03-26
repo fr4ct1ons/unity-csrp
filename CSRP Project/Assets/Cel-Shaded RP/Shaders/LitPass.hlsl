@@ -69,10 +69,7 @@ float4 LitPassFragment (Varyings input) : SV_TARGET {
 		clip(base.a - UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial, _Cutoff));
 	#endif
 	
-	float3 tNormal = SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.baseUV);
-	
-	tNormal *= 2;
-	tNormal -= 1;
+	float3 tNormal = UnpackNormal(SAMPLE_TEXTURE2D(_NormalMap, sampler_NormalMap, input.baseUV));
 
 	Surface surface;
 	surface.position = input.positionWS;

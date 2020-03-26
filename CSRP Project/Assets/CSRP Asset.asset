@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c09c9ba443ab8425ca7560934947ff53, type: 3}
-  m_Name: Custom RP
+  m_Name: CSRP Asset
   m_EditorClassIdentifier: 
   useDynamicBatching: 0
   useGPUInstancing: 1
-  useSRPBatcher: 1
+  useSRPBatcher: 0
   defaultShadowBrightness: 0.1
   brightnessMultiplier: 0.53
   shadowTreshold: 0.15
