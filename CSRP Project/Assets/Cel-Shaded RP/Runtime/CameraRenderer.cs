@@ -41,7 +41,7 @@ public partial class CameraRenderer {
 		
 		buffer.BeginSample(SampleName);
 		ExecuteBuffer();
-		lighting.Setup(context, cullingResults, shadowSettings);
+		lighting.Setup(context, cullingResults, shadowSettings, shadowTreshold);
 		buffer.SetGlobalFloat(defaultShadowBrightnesId, defaultShadowBrightness);
 		buffer.SetGlobalFloat(brightnessMultiplierId, brightnessMultiplier);
 		buffer.SetGlobalFloat(shadowTresholdId, shadowTreshold);

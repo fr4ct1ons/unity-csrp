@@ -30,9 +30,12 @@ public class Lighting {
 
 	private Shadows shadows = new Shadows();
 
-	public void Setup (ScriptableRenderContext context, CullingResults cullingResults,ShadowSettings shadowSettings) 
+	private float shadowTreshold;
+
+	public void Setup (ScriptableRenderContext context, CullingResults cullingResults,ShadowSettings shadowSettings, float shadowTreshold) 
 	{
 		this.cullingResults = cullingResults;
+		this.shadowTreshold = shadowTreshold;
 		buffer.BeginSample(bufferName);
 		shadows.Setup(context, cullingResults, shadowSettings);
 		SetupLights();
@@ -88,6 +91,6 @@ public class Lighting {
 		dirLightDirectionsOrPositions[index] = -visibleLight.localToWorldMatrix.GetColumn(2);
 		dirLightShadowData[index] = shadows.ReserveDirectionalShadows(visibleLight.light, index);
 		dirLightRange[index] = Vector4.zero;
-		dirLightRange[index].y = 0.15f;
+		dirLightRange[index].y = shadowTreshold;
 	}
 }
